@@ -6,7 +6,7 @@
 </head>
 <body>
 
-<button id="download">Adicionar ao calendário</button>
+<p>Adicionando evento ao seu calendário...</p>
 
 <script>
 const icsContent = `BEGIN:VCALENDAR
@@ -28,8 +28,8 @@ TRANSP:OPAQUE
 END:VEVENT
 END:VCALENDAR`;
 
-document.getElementById("download").addEventListener("click", () => {
-  const blob = new Blob([icsContent], { type: "text/calendar" });
+function openCalendar() {
+  const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
   const url = URL.createObjectURL(blob);
 
   const link = document.createElement("a");
@@ -38,9 +38,12 @@ document.getElementById("download").addEventListener("click", () => {
 
   document.body.appendChild(link);
   link.click();
+  document.body.removeChild(link);
 
   URL.revokeObjectURL(url);
-});
+}
+
+window.onload = openCalendar;
 </script>
 
 </body>
